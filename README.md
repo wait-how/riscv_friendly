@@ -16,7 +16,7 @@ Minv isn't designed to be a complete verification suite, as these already exist.
    - Unused tests aren't included in the test suite binary
 
 ## Building
-Run `make` to build the test suite.
+Run `make` in the `src` directory to build the test suite.
   
 `riscv-binutils` is required to build the test suite, but the 32-bit and 64-bit versions both work.  The 64-bit version can be used to build the test suite for 32-bit targets, but not vice versa.
 
