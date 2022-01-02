@@ -1,4 +1,4 @@
 *.elf
 *.hex
 *.o
-exclude
+ext
