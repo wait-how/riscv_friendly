@@ -15,13 +15,19 @@ ABI := ilp32
 # default linker script to use
 LINK_ABI := elf32lriscv
 
+# section addresses for the "bare" target
+# NOTE: the contents of the .bss and .data sections are not included in the .hex output
+# these locations matter for load and store tests
+
 # uninitialized data starts here
 BSS_ADDR := 0x0
 
 # initialized data starts here
 DATA_ADDR := 0x100
 
-# code starts here (note that this value is used in the .elf output but ignored in the .hex output)
+# code starts here
+# NOTE: this value is used in the .elf output but ignored in the .hex output
+# this location matters for jump tests
 TEXT_ADDR := 0x200
 
 

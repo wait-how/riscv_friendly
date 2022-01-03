@@ -13,7 +13,7 @@
 .include "rv32i.s"
 
 # set to 1 to enable printing, set to 0 to disable printing
-.equiv Use_putchar, 0
+.equiv Use_putchar, 1
 
 .text
 .global _start
