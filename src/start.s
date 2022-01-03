@@ -1,8 +1,8 @@
 # uncomment this line to use an example implementation of the proper macros for a software emulator
-#.include "bare_port_macros.s"
+.include "bare_port_macros.s"
 
 # uncomment this line to use an implementation of the proper macros for the spike emulator
-.include "spike_port_macros.s"
+#.include "spike_port_macros.s"
 
 .include "test_macros.s"
 
@@ -12,7 +12,7 @@
 # use tests for all rv32i instructions
 .include "rv32i.s"
 
-# set to 0 to disable print macros
+# set to 1 to enable printing, set to 0 to disable printing
 .equiv Use_putchar, 0
 
 .text

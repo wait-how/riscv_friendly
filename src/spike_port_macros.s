@@ -44,7 +44,6 @@ fail:
 
 # print the character in argument c
 .macro Putchar_imm c
-    li s0, Ecall_putchar
-    li s1, \c
-    ecall
+    # TODO
+    unimp
 .endm

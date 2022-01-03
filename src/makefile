@@ -39,7 +39,7 @@ bare: pre $(TEST_OBJ)
 	@echo "bare-metal build completed"
 
 spike: pre $(TEST_OBJ)
-	@$(TOOLCHAIN)-ld -m$(LINK_ABI) -static -T link.ld $(TEST_OBJ) -o $@.elf
+	@$(TOOLCHAIN)-ld -m$(LINK_ABI) -static -T link_spike.ld $(TEST_OBJ) -o $@.elf
 	@echo "spike build completed"
 
 # need to clear out all object files because changing macros in one file may change

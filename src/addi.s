@@ -24,9 +24,9 @@
     Test_Rd_Bypass addi, dst_byp_2, 1, IMM, addi, 23, 13, 10
     Test_Rd_Bypass addi, dst_byp_3, 2, IMM, addi, 22, 13, 9
 
-    Test_Rs1_Bypass addi, src_byp_1, 0, -1, IMM, addi, 24, 13, 11
-    Test_Rs1_Bypass addi, src_byp_2, 1, -1, IMM, addi, 23, 13, 10
-    Test_Rs1_Bypass addi, src_byp_3, 2, -1, IMM, addi, 22, 13, 9
+    Test_Rs1_Bypass addi, src_byp_1, 0, null, IMM, addi, 24, 13, 11
+    Test_Rs1_Bypass addi, src_byp_2, 1, null, IMM, addi, 23, 13, 10
+    Test_Rs1_Bypass addi, src_byp_3, 2, null, IMM, addi, 22, 13, 9
 
     Test_Rd_Zero_Imm addi, zero_1, addi, 32, 32
     Test_Zero_Rs1_Rs2 addi, zero_2, IMM, addi, 33, 50

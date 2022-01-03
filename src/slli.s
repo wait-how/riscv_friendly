@@ -24,9 +24,9 @@
     Test_Rd_Bypass slli, dst_byp_2, 1, IMM, slli, 0x00004000, 0x00000001, 14
     Test_Rd_Bypass slli, dst_byp_3, 2, IMM, slli, 0x80000000, 0x00000001, 31
 
-    Test_Rs1_Bypass slli, src_byp_1, 0, -1, IMM, slli, 0x00000080, 0x00000001, 7
-    Test_Rs1_Bypass slli, src_byp_2, 1, -1, IMM, slli, 0x00004000, 0x00000001, 14
-    Test_Rs1_Bypass slli, src_byp_3, 2, -1, IMM, slli, 0x80000000, 0x00000001, 31
+    Test_Rs1_Bypass slli, src_byp_1, 0, null, IMM, slli, 0x00000080, 0x00000001, 7
+    Test_Rs1_Bypass slli, src_byp_2, 1, null, IMM, slli, 0x00004000, 0x00000001, 14
+    Test_Rs1_Bypass slli, src_byp_3, 2, null, IMM, slli, 0x80000000, 0x00000001, 31
 
     Test_Rd_Zero_Imm slli, zero_1, slli, 0, 31
     Test_Zero_Rs1_Rs2 slli, zero_2, IMM, slli, 33, 20
