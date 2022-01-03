@@ -84,9 +84,6 @@ These instructions are not required to run the test suite, but are helpful if th
  - If `_start` is not the first label seen it will not be the first to execute in the .hex file.  Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
 
 ## TODOs
-
- - change tests that depend on zero-initialized registers
- - less unnecessary zero-initialization of registers?
  - test misaligned accesses to memory if EEI allows it
  - check unaligned mem tests, two variants used in the test suite
 
