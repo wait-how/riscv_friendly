@@ -1,4 +1,7 @@
 .macro addi_tests
+
+    Suite_Setup addi
+
     Test_Rd_Rs1_Rs2 addi, arith_1, IMM, addi, 0x00000000, 0x00000000, 0x000
     Test_Rd_Rs1_Rs2 addi, arith_2, IMM, addi, 0x00000002, 0x00000001, 0x001
     Test_Rd_Rs1_Rs2 addi, arith_3, IMM, addi, 0x0000000a, 0x00000003, 0x007

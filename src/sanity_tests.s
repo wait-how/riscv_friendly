@@ -1,4 +1,7 @@
 .macro sanity_tests
+
+    Suite_Setup sanity
+
     # check if we can write nonzero values to zero register
     addi a1, zero, 0
     addi a0, zero, 10

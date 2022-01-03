@@ -1,4 +1,7 @@
 .macro blt_tests
+
+    Suite_Setup blt
+
     Test_Branch_Taken blt, taken_1, blt, 0, 1
     Test_Branch_Taken blt, taken_2, blt, -1, 1
     Test_Branch_Taken blt, taken_3, blt, -2, -1

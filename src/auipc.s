@@ -1,4 +1,7 @@
 .macro auipc_tests
+
+    Suite_Setup auipc
+
     Test_Seq auipc, addr_1, "la a0, auipc_test_1; auipc_test_1: la a1, auipc_test_1"
     Test_Seq auipc, addr_2, "la a0, auipc_test_2; nop; auipc_test_2: la a1, auipc_test_2"
     Test_Seq auipc, addr_3, "la a0, auipc_test_3; nop; nop; auipc_test_3: la a1, auipc_test_3"

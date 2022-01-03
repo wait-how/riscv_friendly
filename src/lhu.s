@@ -1,4 +1,7 @@
 .macro lhu_tests
+
+    Suite_Setup lhu
+
     Test_Seq_St sh, ustore_pre_1, sh, 0x00ff, 0, test_data
     Test_Seq_St sh, ustore_pre_2, sh, 0xff00, 0, test_data+2
     Test_Seq_St sh, ustore_pre_3, sh, 0x0ff0, 0, test_data+4

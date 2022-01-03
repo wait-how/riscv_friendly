@@ -1,4 +1,7 @@
 .macro lbu_tests
+
+    Suite_Setup lbu
+
     Test_Seq_St sb, ustore_pre_1, sb, 0xff, 0, test_data
     Test_Seq_St sb, ustore_pre_2, sb, 0x00, 0, test_data+1
     Test_Seq_St sb, ustore_pre_3, sb, 0xf0, 0, test_data+2

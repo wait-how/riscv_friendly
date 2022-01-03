@@ -1,4 +1,7 @@
 .macro srai_tests
+
+    Suite_Setup srai
+
     Test_Rd_Rs1_Rs2 srai, logic_1, IMM, srai, 0x00000000, 0x00000000, 0
     Test_Rd_Rs1_Rs2 srai, logic_2, IMM, srai, 0xc0000000, 0x80000000, 1
     Test_Rd_Rs1_Rs2 srai, logic_3, IMM, srai, 0xff000000, 0x80000000, 7

@@ -1,6 +1,20 @@
-.include "port_macros.s"
+# printing macros
+
+.macro Print_name name
+.if Use_putchar
+.irpc c, \name
+    Putchar_imm "'\c'" # need to put double quotes here to allow macro expansion within quotes
+.endr
+
+Putchar_imm '\n'
+.endif
+.endm
 
 # generic code macros
+
+.macro Suite_Setup suite
+    Print_name \suite
+.endm
 
 # gives a useful symbol name to a test case (helpful when looking at assembly)
 .macro Test_Setup suite, test
@@ -398,17 +412,16 @@
 
 .macro Test_Jalr_Rs_Bypass suite, test, nops
     Test_Setup \suite, \test
-    li a1, 12
+    la a1, 2f
     li a0, 0
 .rept \nops
     nop
 .endr
-jalr_rs_byp_addr_\@:
-    jalr ra, a1, 0
+1:  jalr ra, a1, 0
     addi a0, a0, 1
     addi a0, a0, 1
 
-1:  la a2, jalr_rs_byp_addr_\@
+2:  la a2, 1b
     addi a2, a2, 4
     Assert_eq ra, a2
     Assert_eq a0, zero

@@ -2,6 +2,8 @@
 
     # load tests
 
+    Suite_Setup lw
+
     # simple store tests to set up load tests
     Test_Seq_St sw, store_pre_1, sw, 0x00ff00ff, 0, test_data
     Test_Seq_St sw, store_pre_2, sw, 0xff00ff00, 0, test_data+4
@@ -32,6 +34,8 @@
     Test_Seq lw, waw_2, "li a0, 2; la a2, test_data+4; lw a1, 0(a2); nop; li a1, 2"
 
     # store tests
+
+    Suite_Setup sw
 
     # simple store tests to set up more complex store tests
     Test_Seq_St sw, store_pre_5, sw, 0xdeadbeef, 0, test_data

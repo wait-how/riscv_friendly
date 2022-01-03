@@ -1,7 +1,10 @@
-TEST_SRC := $(wildcard *.s)
-TEST_OBJ := $(notdir $(patsubst %.s,%.o,$(TEST_SRC)))
+
+
+# CONFIGURATION SECTION
+
+
+# set the name of the toolchain to use
 TOOLCHAIN := riscv64-elf
-BINARY := testsuite
 
 # set the architecture to test
 ARCH := rv32i
@@ -12,30 +15,35 @@ ABI := ilp32
 # default linker script to use
 LINK_ABI := elf32lriscv
 
-# initialized data starts here
-DATA_ADDR := 0x0
-
 # uninitialized data starts here
-BSS_ADDR := 0x40
+BSS_ADDR := 0x0
 
-# code starts here
-TEXT_ADDR := 0x100
+# initialized data starts here
+DATA_ADDR := 0x100
 
-# linker flags
-LFLAGS := -m$(LINK_ABI) -static -Ttext $(TEXT_ADDR) -Tbss $(BSS_ADDR) -Tdata $(DATA_ADDR)
+# code starts here (note that this value is used in the .elf output but ignored in the .hex output)
+TEXT_ADDR := 0x200
 
-.PHONY: dump dump_simple single $(BINARY) pre
 
-# builds the entire test suite
-# compilation and linking passes are split up to give better error messages
-# NOTE: the .bss and .data sections are _not_ built into the .hex file (this can be done by removing the flag "--only-section=.text")
-$(BINARY): pre $(TEST_OBJ)
-	@$(TOOLCHAIN)-ld $(LFLAGS) $(TEST_OBJ) -o $(BINARY).elf
-	@$(TOOLCHAIN)-objcopy --only-section=.text $(BINARY).elf $(BINARY).hex --output-target=binary
-	@echo "build completed successfully"
+# END CONFIGURATION SECTION
+
+
+TEST_SRC := $(wildcard *.s)
+TEST_OBJ := $(notdir $(patsubst %.s,%.o,$(TEST_SRC)))
+
+.PHONY: dump_hw dump_sw single bare spike pre
+
+bare: pre $(TEST_OBJ)
+	@$(TOOLCHAIN)-ld -m$(LINK_ABI) -static -Ttext $(TEXT_ADDR) -Tbss $(BSS_ADDR) -Tdata $(DATA_ADDR) $(TEST_OBJ) -o $@.elf
+	@$(TOOLCHAIN)-objcopy $@.elf $@.hex --only-section=.text --output-target=binary
+	@echo "bare-metal build completed"
+
+spike: pre $(TEST_OBJ)
+	@$(TOOLCHAIN)-ld -m$(LINK_ABI) -static -T link.ld $(TEST_OBJ) -o $@.elf
+	@echo "spike build completed"
 
 # need to clear out all object files because changing macros in one file may change
-# the contents of others - there's probably a better way to do this
+# the contents of others (there's probably a better way to do this)
 pre:
 	@rm -f *.o
 
@@ -44,19 +52,20 @@ pre:
 
 # disassemble the test suite .elf using high-level register names (a0, a1, etc), pseudoinstructions,
 # and colored arrows to indicate jump directions
-dump: $(BINARY)
-	@$(TOOLCHAIN)-objdump -d \
-		--line-numbers \
-		--visualize-jumps=extended-color \
-		$(BINARY).elf | tail +8
-
-# disassemble the test suite .elf using actual register names (x1, x2, etc) and actual instructions
-dump_simple: $(BINARY)
+dump_hw:
 	@$(TOOLCHAIN)-objdump -d \
 		--line-numbers \
 		-Mno-aliases,numeric \
-		$(BINARY).elf | tail +8
+		--visualize-jumps=extended-color \
+		$(file) | tail +8
+
+# disassemble the test suite .elf using actual register names (x1, x2, etc) and actual instructions
+dump_sw:
+	@$(TOOLCHAIN)-objdump -d \
+		--line-numbers \
+		--visualize-jumps=extended-color \
+		$(file) | tail +8
 
 clean:
 	@rm -f *.o
-	@rm -f $(BINARY).elf $(BINARY).hex
+	@rm -f *.elf *.hex

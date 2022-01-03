@@ -1,4 +1,7 @@
 .macro xori_tests
+
+    Suite_Setup xori
+
     Test_Rd_Rs1_Rs2 xori, logic_1, IMM, xori, 0xff00f00f, 0x00ff0f00, -241 # 0xf0f
     Test_Rd_Rs1_Rs2 xori, logic_2, IMM, xori, 0x0ff00f00, 0x0ff00ff0, 0x0f0
     Test_Rd_Rs1_Rs2 xori, logic_3, IMM, xori, 0x00ff0ff0, 0x00ff08ff, 0x70f

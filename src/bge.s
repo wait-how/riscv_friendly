@@ -1,4 +1,7 @@
 .macro bge_tests
+
+    Suite_Setup bge
+
     Test_Branch_Taken bge, taken_1, bge, 0, 0
     Test_Branch_Taken bge, taken_2, bge, 1, 1
     Test_Branch_Taken bge, taken_3, bge, -1, -1

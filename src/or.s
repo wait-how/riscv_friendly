@@ -1,4 +1,7 @@
 .macro or_tests
+
+    Suite_Setup or
+
     Test_Rd_Rs1_Rs2 or, logic_1, REG, or, 0xff0fff0f, 0xff00ff00, 0x0f0f0f0f
     Test_Rd_Rs1_Rs2 or, logic_2, REG, or, 0xfff0fff0, 0x0ff00ff0, 0xf0f0f0f0
     Test_Rd_Rs1_Rs2 or, logic_3, REG, or, 0x0fff0fff, 0x00ff00ff, 0x0f0f0f0f

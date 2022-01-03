@@ -1,5 +1,7 @@
 .macro lb_sb_tests
 
+    Suite_Setup lb
+
     # load tests
 
     # simple store tests to set up load tests
@@ -32,6 +34,8 @@
     Test_Seq lb, waw_2, "li a0, 2; la a2, test_data; lb a1, 0(a2); nop; li a1, 2"
 
     # store tests
+
+    Suite_Setup sb
 
     # simple store tests to set up more complex store tests
     Test_Seq_St sb, store_pre_5, sb, 0xef, 0, test_data

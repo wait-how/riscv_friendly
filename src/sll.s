@@ -1,4 +1,7 @@
 .macro sll_tests
+
+    Suite_Setup sll
+
     Test_Rd_Rs1_Rs2 sll, logic_1, REG, sll, 0x00000001, 0x00000001, 0
     Test_Rd_Rs1_Rs2 sll, logic_2, REG, sll, 0x00000002, 0x00000001, 1
     Test_Rd_Rs1_Rs2 sll, logic_3, REG, sll, 0x00000080, 0x00000001, 7

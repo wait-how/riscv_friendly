@@ -1,4 +1,7 @@
 .macro xor_tests
+
+    Suite_Setup xor
+
     Test_Rd_Rs1_Rs2 xor, logic_1, REG, xor, 0xf00ff00f, 0xff00ff00, 0x0f0f0f0f
     Test_Rd_Rs1_Rs2 xor, logic_2, REG, xor, 0xff00ff00, 0x0ff00ff0, 0xf0f0f0f0
     Test_Rd_Rs1_Rs2 xor, logic_3, REG, xor, 0x0ff00ff0, 0x00ff00ff, 0x0f0f0f0f

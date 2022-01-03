@@ -1,4 +1,7 @@
 .macro lui_tests
+
+    Suite_Setup lui
+
     Test_Val lui, logic_1, 0x00000000, "lui a1, 0x00000"
     Test_Val lui, logic_2, 0x00005000, "lui a1, 0x00005"
     Test_Val lui, logic_3, 0xfffff000, "lui a1, 0xfffff"

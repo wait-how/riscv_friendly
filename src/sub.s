@@ -1,4 +1,7 @@
 .macro sub_tests
+
+    Suite_Setup sub
+
     Test_Rd_Rs1_Rs2 sub, arith_1, REG, sub, 0x00000000, 0x00000000, 0x00000000
     Test_Rd_Rs1_Rs2 sub, arith_2, REG, sub, 0x00000000, 0x00000001, 0x00000001
     Test_Rd_Rs1_Rs2 sub, arith_3, REG, sub, 0xfffffffc, 0x00000003, 0x00000007

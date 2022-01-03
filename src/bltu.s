@@ -1,4 +1,7 @@
 .macro bltu_tests
+
+    Suite_Setup bltu
+
     Test_Branch_Taken bltu, taken_1, bltu, 0x00000000, 0x00000001
     Test_Branch_Taken bltu, taken_2, bltu, 0xfffffffe, 0xffffffff
     Test_Branch_Taken bltu, taken_3, bltu, 0x00000000, 0xffffffff

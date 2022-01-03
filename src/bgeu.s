@@ -1,4 +1,7 @@
 .macro bgeu_tests
+
+    Suite_Setup bgeu
+
     Test_Branch_Taken bgeu, taken_1, bgeu, 0x00000000, 0x00000000
     Test_Branch_Taken bgeu, taken_2, bgeu, 0x00000001, 0x00000001
     Test_Branch_Taken bgeu, taken_3, bgeu, 0xffffffff, 0xffffffff

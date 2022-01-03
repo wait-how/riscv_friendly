@@ -1,4 +1,7 @@
 .macro ori_tests
+
+    Suite_Setup ori
+
     Test_Rd_Rs1_Rs2 ori, logic_1, IMM, ori, 0xffffff0f, 0xff00ff00, -241 # 0xf0f
     Test_Rd_Rs1_Rs2 ori, logic_2, IMM, ori, 0x0ff00ff0, 0x0ff00ff0, 0x0f0
     Test_Rd_Rs1_Rs2 ori, logic_3, IMM, ori, 0x00ff07ff, 0x00ff00ff, 0x70f

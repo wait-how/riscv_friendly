@@ -1,4 +1,7 @@
 .macro and_tests
+
+    Suite_Setup and
+
     Test_Rd_Rs1_Rs2 and, logic_1, REG, and, 0x0f000f00, 0xff00ff00, 0x0f0f0f0f
     Test_Rd_Rs1_Rs2 and, logic_2, REG, and, 0x00f000f0, 0x0ff00ff0, 0xf0f0f0f0
     Test_Rd_Rs1_Rs2 and, logic_3, REG, and, 0x000f000f, 0x00ff00ff, 0x0f0f0f0f

@@ -1,4 +1,7 @@
 .macro sra_tests
+
+    Suite_Setup sra
+
     Test_Rd_Rs1_Rs2 sra, logic_1, REG, sra, 0x80000000, 0x80000000, 0
     Test_Rd_Rs1_Rs2 sra, logic_2, REG, sra, 0xc0000000, 0x80000000, 1
     Test_Rd_Rs1_Rs2 sra, logic_3, REG, sra, 0xff000000, 0x80000000, 7

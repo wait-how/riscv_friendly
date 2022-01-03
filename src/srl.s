@@ -1,4 +1,7 @@
 .macro srl_tests
+
+    Suite_Setup srl
+
     Test_Rd_Rs1_Rs2 srl, logic_1, REG, srl, 0xffff8000, 0xffff8000, 0
     Test_Rd_Rs1_Rs2 srl, logic_2, REG, srl, 0x7fffc000, 0xffff8000, 1
     Test_Rd_Rs1_Rs2 srl, logic_3, REG, srl, 0x01ffff00, 0xffff8000, 7

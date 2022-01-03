@@ -1,5 +1,7 @@
 .macro jal_tests
 
+    Suite_Setup jal
+
     # using a manually constructed test here because the test is pretty specialized
 
 jal_jump_1:

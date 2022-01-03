@@ -1,4 +1,7 @@
 .macro andi_tests
+
+    Suite_Setup andi
+
     Test_Rd_Rs1_Rs2 andi, logic_1, IMM, andi, 0xff00ff00, 0xff00ff00, -241 # 0xf0f
     Test_Rd_Rs1_Rs2 andi, logic_2, IMM, andi, 0x000000f0, 0x0ff00ff0, 0x0f0
     Test_Rd_Rs1_Rs2 andi, logic_3, IMM, andi, 0x0000000f, 0x00ff00ff, 0x70f

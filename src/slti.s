@@ -1,4 +1,7 @@
 .macro slti_sltiu_tests
+
+    Suite_Setup slti/u
+
     Test_Rd_Rs1_Rs2 slti, unsigned_1, IMM, slti, 0, 0x00000000, 0x000
     Test_Rd_Rs1_Rs2 slti, unsigned_2, IMM, slti, 0, 0x00000001, 0x001
     Test_Rd_Rs1_Rs2 slti, unsigned_3, IMM, slti, 1, 0x00000003, 0x007

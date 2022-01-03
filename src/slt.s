@@ -1,4 +1,7 @@
 .macro slt_tests
+
+    Suite_Setup slt
+
     Test_Rd_Rs1_Rs2 slt, unsigned_1, REG, slt, 0, 0x00000000, 0x00000000
     Test_Rd_Rs1_Rs2 slt, unsigned_2, REG, slt, 0, 0x00000001, 0x00000001
     Test_Rd_Rs1_Rs2 slt, unsigned_3, REG, slt, 1, 0x00000003, 0x00000007

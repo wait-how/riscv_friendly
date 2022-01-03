@@ -1,4 +1,7 @@
 .macro srli_tests
+
+    Suite_Setup srli
+
     Test_Rd_Rs1_Rs2 srli, logic_1, IMM, srli, 0xffff8000, 0xffff8000, 0
     Test_Rd_Rs1_Rs2 srli, logic_2, IMM, srli, 0x7fffc000, 0xffff8000, 1
     Test_Rd_Rs1_Rs2 srli, logic_3, IMM, srli, 0x01ffff00, 0xffff8000, 7

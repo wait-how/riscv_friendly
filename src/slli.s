@@ -1,4 +1,7 @@
 .macro slli_tests
+
+    Suite_Setup slli
+
     Test_Rd_Rs1_Rs2 slli, logic_1, IMM, slli, 0x00000001, 0x00000001, 0
     Test_Rd_Rs1_Rs2 slli, logic_2, IMM, slli, 0x00000002, 0x00000001, 1
     Test_Rd_Rs1_Rs2 slli, logic_3, IMM, slli, 0x00000080, 0x00000001, 7
