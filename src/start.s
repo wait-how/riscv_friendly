@@ -43,7 +43,8 @@ _start:
     sra_tests
     srai_tests
     slt_tests
-    slti_sltiu_tests
+    slti_tests
+    sltiu_tests
 
     # load/store tests
     lb_sb_tests

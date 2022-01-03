@@ -85,7 +85,6 @@ These instructions are not required to run the test suite, but are helpful if th
 
 ## TODOs
 
- - sltiu tests (riscv-tests only has one, riscv-friendly has none)
  - change tests that depend on zero-initialized registers
  - less unnecessary zero-initialization of registers?
  - test misaligned accesses to memory if EEI allows it

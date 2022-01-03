@@ -15,6 +15,7 @@
 .include "srai.s"
 .include "slt.s"
 .include "slti.s"
+.include "sltiu.s"
 .include "lui.s"
 .include "auipc.s"
 
