@@ -7,7 +7,7 @@
 TOOLCHAIN := riscv64-elf
 
 # set the architecture to test
-ARCH := rv32i
+ARCH := rv32im
 
 # set the abi to use (use ilp32 for 32-bit processors and lp64 for 64-bit processors)
 ABI := ilp32

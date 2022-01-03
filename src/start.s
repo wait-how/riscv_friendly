@@ -12,8 +12,11 @@
 # use tests for all rv32i instructions
 .include "rv32i.s"
 
+# use tests for all multiply and divide instructions
+.include "ext_m.s"
+
 # set to 1 to enable printing, set to 0 to disable printing
-.equiv Use_putchar, 1
+.equiv Use_putchar, 0
 
 .text
 .global _start
@@ -62,6 +65,17 @@ _start:
     bgeu_tests
     jal_tests
     jalr_tests
+
+    # M extension tests
+    # mul_tests
+    # mulh_tests
+    # mulhu_tests
+    # mulhsu_tests
+
+    # div_tests
+    # divu_tests
+    # rem_tests
+    # remu_tests
 
     Stop
 
