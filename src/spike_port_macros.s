@@ -18,10 +18,11 @@
 1:  j 1b
 .endm
 
-# create symbols used to communicate with spike
+# put misc implementation details here
 .macro Imp_details
 .data
 
+# create symbols to communicate with the host
 .align 4
 .global tohost
 tohost:

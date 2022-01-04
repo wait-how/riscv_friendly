@@ -1,3 +1,5 @@
+# Multiply extension instructions
+
 .include "mul.s"
 .include "mulh.s"
 .include "mulhu.s"

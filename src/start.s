@@ -1,8 +1,8 @@
 # uncomment this line to use an example implementation of the proper macros for a software emulator
-.include "bare_port_macros.s"
+#.include "bare_port_macros.s"
 
 # uncomment this line to use an implementation of the proper macros for the spike emulator
-#.include "spike_port_macros.s"
+.include "spike_port_macros.s"
 
 .include "test_macros.s"
 
@@ -14,6 +14,9 @@
 
 # use tests for all multiply and divide instructions
 .include "ext_m.s"
+
+# use tests for control and status register instructions
+.include "ext_zicsr.s"
 
 # set to 1 to enable printing, set to 0 to disable printing
 .equiv Use_putchar, 0
@@ -76,6 +79,8 @@ _start:
     # divu_tests
     # rem_tests
     # remu_tests
+
+    csrrw_tests
 
     Stop
 

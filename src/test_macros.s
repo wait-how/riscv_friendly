@@ -412,6 +412,7 @@ Putchar_imm '\n'
 
 .macro Test_Jalr_Rs_Bypass suite, test, nops
     Test_Setup \suite, \test
+
     la a1, 2f
     li a0, 0
 .rept \nops
@@ -425,4 +426,32 @@ Putchar_imm '\n'
     addi a2, a2, 4
     Assert_eq ra, a2
     Assert_eq a0, zero
+.endm
+
+# Zicsr macros
+
+.macro Test_Rd_Csr_Rs suite, test, instr, csr, exp_val, write_val
+    Test_Setup \suite, \test
+
+    li a2, \exp_val
+    li a0, \write_val
+    \instr a1, \csr, a0
+
+    Assert_eq a1, a2
+.endm
+
+.macro Test_Zero_Csr_Rs suite, test, instr, csr, write_val
+    Test_Setup \suite, \test
+
+    li a0, \write_val
+    \instr zero, \csr, a0
+.endm
+
+.macro Test_Rd_Csr_Zero suite, test, instr, csr, exp_val
+    Test_Setup \suite, \test
+
+    li a1, \exp_val
+    \instr a0, \csr, zero
+
+    Assert_eq a0, a1
 .endm

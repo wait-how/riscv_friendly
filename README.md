@@ -2,7 +2,7 @@
 
 riscv_friendly is an instruction level test suite for RISC-V processors that aren't finished yet.  The test suite borrows from the official [riscv-tests](https://github.com/riscv-software-src/riscv-tests) test suite, but only uses a small subset of the base RV32I instruction set to run the same tests.  This allows core instructions to be validated before the entire ISA is fully implemented.
   
-NOTE: riscv_friendly is designed as a convienent starting point for verification, not a complete verification suite.  However the test suite works quite well for testing simple RISC-V implementations and emulators.
+NOTE: riscv_friendly should not be your only test suite if you're doing something important.  However it works quite well for testing simple RISC-V implementations and emulators.
 
 ## Features
  - Extensive tests for all RV32I instructions as well as some extensions
@@ -47,23 +47,41 @@ $ brew install riscv-tools
 
 ## Building
 Note that if you are using the 32-bit version of the RISC-V tools, the makefile may need to be edited.
-  
-Run `make` in the `src` directory to build the test suite for the `bare` target, which is a target suitable for running the test suite on bare metal hardware.  The makefile will probably need to be edited in order to map the test suite to your specific platform (and address range), but this can often be done without the use of linker scripts.  Running `make spike` will build the test suite for execution on the spike RISC-V emulator, but this also requires commenting out some lines in `start.s`.
 
-## Using
-If the `bare` build is successful, two files will be created: `bare.elf` and `bare.hex`.  `testsuite.elf` should be used if you need to disassemble or process the executable.  `bare.hex` is the raw binary itself, and can be loaded into emulators or simulators directly.  Building for will only generate the file `spike.elf`.
+### Bare Metal
+Run `make` in the `src` directory to build the test suite for the `bare` target, which is suitable for running the test suite on bare metal hardware.
+  
+By default, the .data and .bss segments are located before the .text segment in order to easily permit execution on machines with seperate instruction and data memories.  If the .hex file is loaded into memory and executed directly, execution must start at the address assigned to the `TEXT_ADDR` makefile variable.
+  
+If the `bare` build is successful, two files will be created: `bare.elf` and `bare.hex`.  `bare.elf` should be used if you need to disassemble or process the executable (see the Debugging section for more details).  `bare.hex` is the raw binary and can be loaded into emulators or simulators directly.
 
 Below is the example output from an emulator written in Rust.
 ```
 $ cargo run bare.hex
-starting execution
+(emulator) starting execution
 sanity
 lui
 auipc
 ...
 jal
 jalr
-terminating execution
+(emulator) terminating execution
+```
+
+### Spike
+To build the test suite for the [spike RISC-V emulator](https://github.com/riscv-software-src/riscv-isa-sim), the correct assertion macros must be included.  This can be done by uncommenting the relevant `.include` in `start.s`, like so:
+```
+# comment this line
+#.include "bare_port_macros.s"
+
+# uncomment this line
+.include "spike_port_macros.s"
+```
+
+Afterwards, run `make spike` in the `src` directory.  This will generate a file named `spike.elf` that can be executed on the emulator like so:
+```
+# launch the spike emulator with 1MiB of memory using the RV32I instruction set with the multiply extension
+$ spike -m1 --isa=rv32im ./spike.elf
 ```
 
 ## Debugging
@@ -86,7 +104,14 @@ These instructions are not required to run the test suite, but are helpful if th
  - `ecall` or `ebreak`
     - The `ecall` and `ebreak` instructions hand control to the execution environment, with parameters being passed in registers.  This instruction is fairly easy to implement for basic processor or emulators and is used to implement the assertion macro `Assert_eq` for the `bare` target.
 
-### Port Notes
+### Implementation Details
+ - The Zicsr extension tests require access to the following registers:
+    - A register that can be read and written without affecting program execution, such as one of the following:
+       - `mscratch` (trap scratch register, address 0x340)
+       - `fflags` (floating point exception register, address 0x001)
+    - `cycle` (cycle count register, address 0xC00)
+    - `time` (time register, address 0xC01)
+    - `instret` (retired instruction count register, address 0xC02)
  - At least 64 bytes of uninitialized memory should be in the .bss section.  The .data section is not used.
  - If `_start` is not the first label seen it will not be the first to execute in the .hex file.  Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
 
