@@ -5,7 +5,7 @@ riscv_friendly is an instruction level test suite for RISC-V processors that are
 NOTE: riscv_friendly is designed as a convienent starting point for verification, not a complete verification suite.  However the test suite works quite well for testing simple RISC-V implementations and emulators.
 
 ## Features
- - Extensive tests for all RV32I instructions
+ - Extensive tests for all RV32I instructions as well as some extensions
    - Fixes bugs present in the base riscv-tests test suite
  - Uses only a small subset of the base RV32I instruction set for all tests (see the Required Pseudoinstructions section for details)
  - Contains bypass tests for traditional 5-stage pipelines
@@ -15,6 +15,13 @@ NOTE: riscv_friendly is designed as a convienent starting point for verification
    - All system-specific macros are located in standalone files
    - Every test has its own label in order to easily map pc addresses to test cases
    - Unused tests aren't included in the test suite binary
+
+## ISA/Extension Support
+ - rv32i
+ - rv32e (note that ld does not support rv32e)
+ - M
+ - TODO: Zicsr
+ - TODO: Zifencei
 
 ## Dependencies
 A RISC-V port of binutils is required to build the test suite.  Note that the 32-bit and 64-bit versions of binutils both work, so either one can be used.  The 64-bit version can be used to build the test suite for 32-bit targets, but not vice versa.

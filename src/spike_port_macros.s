@@ -2,9 +2,9 @@
 
 # checks if registers l and r are equal and terminates execution if they aren't
 .macro Assert_eq lreg, rreg
-    mv s1, \lreg
-    mv s2, \rreg
-    bne s1, s2, 1f
+    mv t1, \lreg
+    mv t2, \rreg
+    bne t1, t2, 1f
     j 2f
 1:  j fail
 2:  

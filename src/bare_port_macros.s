@@ -3,8 +3,8 @@
 # checks if registers l and r are equal and terminates execution if they aren't
 .macro Assert_eq lreg, rreg
     li s0, 0 # 0 == assert Ecall
-    mv s1, \lreg
-    mv s2, \rreg
+    mv t1, \lreg
+    mv t2, \rreg
     ecall
 .endm
 
@@ -22,6 +22,6 @@
 # print the character in argument c
 .macro Putchar_imm c
     li s0, 1 # 1 == print Ecall
-    li s1, \c
+    li t1, \c
     ecall
 .endm
