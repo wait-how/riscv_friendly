@@ -80,7 +80,7 @@ _start:
     # rem_tests
     # remu_tests
 
-    csrrw_tests
+    # csrrw_tests
 
     Stop
 
