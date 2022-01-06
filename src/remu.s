@@ -1,4 +1,5 @@
 .macro remu_tests
+
     Suite_Setup remu
 
     Test_Rd_Rs1_Rs2 remu, rem_1, REG, remu, 2, 20, 6

@@ -430,28 +430,50 @@ Putchar_imm '\n'
 
 # Zicsr macros
 
-.macro Test_Rd_Csr_Rs suite, test, instr, csr, exp_val, write_val
+.macro Test_Rd_Csr_Rs suite, test, imm, instr, csr, exp_val, write_val
     Test_Setup \suite, \test
 
+    # instr must be executed twice to fetch value written in first call
+
     li a2, \exp_val
+.if \imm
+    \instr a1, \csr, \write_val
+    \instr a1, \csr, \write_val
+.else
     li a0, \write_val
     \instr a1, \csr, a0
+    \instr a1, \csr, a0
+.endif
+    
 
     Assert_eq a1, a2
 .endm
 
-.macro Test_Zero_Csr_Rs suite, test, instr, csr, write_val
+.macro Test_Zero_Csr_Rs suite, test, imm, instr, csr, write_val
     Test_Setup \suite, \test
 
+.if \imm
+    \instr zero, \csr, \write_val
+    \instr zero, \csr, \write_val
+.else
     li a0, \write_val
     \instr zero, \csr, a0
+    \instr zero, \csr, a0
+.endif
 .endm
 
 .macro Test_Rd_Csr_Zero suite, test, instr, csr, exp_val
     Test_Setup \suite, \test
 
     li a1, \exp_val
+    \instr a0, \csr, zero # must be executed twice to fetch value written in first call
     \instr a0, \csr, zero
 
     Assert_eq a0, a1
+.endm
+
+.macro Test_Zero_Csr_Zero suite, test, instr, csr
+    Test_Setup \suite, \test
+
+    \instr zero, \csr, zero
 .endm

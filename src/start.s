@@ -80,7 +80,11 @@ _start:
     # rem_tests
     # remu_tests
 
-    # csrrw_tests
+    # Zicsr extension tests (WIP)
+    csrrw_tests
+    csrrwi_tests
+    csrrs_tests
+    csrrc_tests
 
     Stop
 

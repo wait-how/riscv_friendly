@@ -8,6 +8,11 @@
     ecall
 .endm
 
+.macro Assert_ne lreg, rreg
+    # TODO
+    unimp
+.endm
+
 # halts execution, called once when test suite has finished successfully
 .macro Stop
     ebreak

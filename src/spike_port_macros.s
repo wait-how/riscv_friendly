@@ -10,6 +10,16 @@
 2:  
 .endm
 
+# checks if registers l and r are different and terminates execution if they aren't
+.macro Assert_ne lreg, rreg
+    mv t1, \lreg
+    mv t2, \rreg
+    beq t1, t2, 1f
+    j 2f
+1:  j fail
+2:  
+.endm
+
 .macro Stop
     # NOTE: writing a 32-bit value to tohost with lsb set to 1 stops the sim, with the upper 31 bits used as the exit code
     li t0, 1
