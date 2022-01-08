@@ -13,8 +13,7 @@
     Test_Rd_Csr_Rs csrrs, rmw_6, REG, csrrs, mscratch, 0xfdffffff, 0x00f00000
     Test_Rd_Csr_Rs csrrs, rmw_7, REG, csrrs, mscratch, 0xffffffff, 0xff000000
 
-    li a0, 0x00000000
-    csrrw zero, mscratch, a0
+    csrrw zero, mscratch, zero
 
     Test_Rd_Csr_Rs csrrs, rmw_8, REG, csrrs, mscratch, 0xffffffff, 0xffffffff
 

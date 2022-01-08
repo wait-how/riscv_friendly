@@ -18,6 +18,9 @@
 # use tests for control and status register instructions
 .include "ext_zicsr.s"
 
+# use test for writing to instruction memory
+.include "zifencei.s"
+
 # set to 1 to enable printing, set to 0 to disable printing
 .equiv Use_putchar, 0
 
@@ -74,17 +77,21 @@ _start:
     # mulh_tests
     # mulhu_tests
     # mulhsu_tests
-
     # div_tests
     # divu_tests
     # rem_tests
     # remu_tests
 
-    # Zicsr extension tests (WIP)
-    csrrw_tests
-    csrrwi_tests
-    csrrs_tests
-    csrrc_tests
+    # Zicsr extension tests
+    # csrrw_tests
+    # csrrwi_tests
+    # csrrs_tests
+    # csrrsi_tests
+    # csrrc_tests
+    # csrrci_tests
+
+    # Zifencei extension tests
+    zifencei_tests
 
     Stop
 

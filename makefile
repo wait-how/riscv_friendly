@@ -44,6 +44,8 @@ bare: pre $(OBJ)
 	@$(TOOLCHAIN)-objcopy $@.elf $@.hex --only-section=.text --output-target=binary
 	@echo "bare-metal build completed"
 
+# run the binary using the following command:
+# $ spike -m1 --isa=rv32im ./spike.elf
 spike: pre $(OBJ)
 	@$(TOOLCHAIN)-ld -m$(LINK_ABI) -static -T link_spike.ld $(OBJ) -o $@.elf
 	@echo "spike build completed"

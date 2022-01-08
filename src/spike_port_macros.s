@@ -21,6 +21,7 @@
 .endm
 
 .macro Stop
+stop:
     # NOTE: writing a 32-bit value to tohost with lsb set to 1 stops the sim, with the upper 31 bits used as the exit code
     li t0, 1
     la t1, tohost

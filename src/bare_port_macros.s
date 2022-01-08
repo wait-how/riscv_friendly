@@ -15,6 +15,7 @@
 
 # halts execution, called once when test suite has finished successfully
 .macro Stop
+stop:
     ebreak
 .endm
 

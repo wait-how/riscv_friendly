@@ -18,9 +18,9 @@ NOTE: riscv_friendly should not be your only test suite if you're doing somethin
 
 ## ISA/Extension Support
  - rv32i
- - rv32e (note that ld does not support rv32e)
+ - rv32e (note that riscv-ld does not support rv32e at the time of writing)
  - M
- - TODO: Zicsr
+ - Zicsr
  - TODO: Zifencei
 
 ## Dependencies
@@ -98,6 +98,8 @@ These instructions are assumed to function properly in order to run the test sui
     - Formed using `auipc` and `addi`, used for loading full addresses into registers
  - `mv`
     - Equivalent to `add dst, src, x0`, used to move values between registers
+ - The Zicsr extension depends on `csrrw` writing values correctly in order to test all other extension instructions
+ - The Zifencei extension depends on `sw` and `j` to write and execute code in instruction memory
 
 ### Recommended (Pseudo)instructions
 These instructions are not required to run the test suite, but are helpful if the processor or emulator is still being developed.
@@ -116,6 +118,9 @@ These instructions are not required to run the test suite, but are helpful if th
  - If `_start` is not the first label seen it will not be the first to execute in the .hex file.  Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
 
 ## TODOs
+ - test fence instruction
+ - test ecall/ebreak instructions
+ - test cycle, time, instret in zicsr
  - test misaligned accesses to memory if EEI allows it
  - check unaligned mem tests, two variants used in the test suite
 
