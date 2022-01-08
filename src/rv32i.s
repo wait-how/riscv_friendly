@@ -33,3 +33,5 @@
 .include "lh_sh.s"
 .include "lhu.s"
 .include "lw_sw.s"
+
+.include "fence.s"

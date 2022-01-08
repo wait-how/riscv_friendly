@@ -99,7 +99,7 @@ These instructions are assumed to function properly in order to run the test sui
  - `mv`
     - Equivalent to `add dst, src, x0`, used to move values between registers
  - The Zicsr extension depends on `csrrw` writing values correctly in order to test all other extension instructions
- - The Zifencei extension depends on `sw` and `j` to write and execute code in instruction memory
+ - The Zifencei extension depends on `sw` to write to instruction memory
 
 ### Recommended (Pseudo)instructions
 These instructions are not required to run the test suite, but are helpful if the processor or emulator is still being developed.
@@ -107,6 +107,9 @@ These instructions are not required to run the test suite, but are helpful if th
     - The `ecall` and `ebreak` instructions hand control to the execution environment, with parameters being passed in registers.  This instruction is fairly easy to implement for basic processor or emulators and is used to implement the assertion macro `Assert_eq` for the `bare` target.
 
 ### Implementation Details
+ - At least 64 bytes of uninitialized memory should be in the .bss section.  The .data section is not used.
+ - If `_start` is not the first label seen it will not be the first to execute in the .hex file.  Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
+
  - The Zicsr extension tests require access to the following registers:
     - A register that can be read and written without affecting program execution, such as one of the following:
        - `mscratch` (trap scratch register, address 0x340)
@@ -114,11 +117,9 @@ These instructions are not required to run the test suite, but are helpful if th
     - `cycle` (cycle count register, address 0xC00)
     - `time` (time register, address 0xC01)
     - `instret` (retired instruction count register, address 0xC02)
- - At least 64 bytes of uninitialized memory should be in the .bss section.  The .data section is not used.
- - If `_start` is not the first label seen it will not be the first to execute in the .hex file.  Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
 
 ## TODOs
- - test fence instruction
+ - finish fence tests
  - test ecall/ebreak instructions
  - test cycle, time, instret in zicsr
  - test misaligned accesses to memory if EEI allows it

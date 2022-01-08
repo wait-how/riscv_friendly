@@ -72,6 +72,9 @@ _start:
     jal_tests
     jalr_tests
 
+    # misc tests
+    fence_tests
+
     # M extension tests
     # mul_tests
     # mulh_tests
