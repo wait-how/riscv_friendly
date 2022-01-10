@@ -19,6 +19,10 @@ stop:
     ebreak
 .endm
 
+# put implementation setup here
+.macro Imp_setup
+.endm
+
 # put misc implementation details here
 .macro Imp_details
 .endm

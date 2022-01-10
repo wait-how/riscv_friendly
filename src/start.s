@@ -22,11 +22,13 @@
 .include "zifencei.s"
 
 # set to 1 to enable printing, set to 0 to disable printing
-.equiv Use_putchar, 0
+.equiv Use_putchar, 1
 
 .text
 .global _start
 _start:
+    # set up the test suite environment
+    Imp_setup
 
     # quick sanity tests to check that lui, add, addi, and Assert_eq are all working
     # NOTE: check these tests carefully, as the tests below assume these instructions function correctly!
@@ -76,26 +78,27 @@ _start:
     fence_tests
 
     # M extension tests
-    # mul_tests
-    # mulh_tests
-    # mulhu_tests
-    # mulhsu_tests
-    # div_tests
-    # divu_tests
-    # rem_tests
-    # remu_tests
+    mul_tests
+    mulh_tests
+    mulhu_tests
+    mulhsu_tests
+    div_tests
+    divu_tests
+    rem_tests
+    remu_tests
 
     # Zicsr extension tests
-    # csrrw_tests
-    # csrrwi_tests
-    # csrrs_tests
-    # csrrsi_tests
-    # csrrc_tests
-    # csrrci_tests
+    csrrw_tests
+    csrrwi_tests
+    csrrs_tests
+    csrrsi_tests
+    csrrc_tests
+    csrrci_tests
 
     # Zifencei extension tests
     zifencei_tests
 
+    # stop execution
     Stop
 
     Imp_details
@@ -103,9 +106,11 @@ _start:
 .bss
 # space for testing load and store instructions
 test_data:
+    .align 4
     .fill 64
 
 .data
 # not used but defined
 unused:
+    .align 4
     .fill 64
