@@ -12,6 +12,7 @@
 .equiv Use_putchar, 1
 
 # Test suites
+# any test suites commented out will not be included in the binary
 
 # basic sanity tests
 .include "sanity_tests.s"
