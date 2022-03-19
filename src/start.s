@@ -1,28 +1,6 @@
-# uncomment this line to use an example implementation of the proper macros for a software emulator
-#.include "bare_port_macros.s"
-
-# uncomment this line to use an implementation of the proper macros for the spike emulator
-.include "spike_port_macros.s"
-
 .include "test_macros.s"
 
-# use basic sanity tests
-.include "sanity_tests.s"
-
-# use tests for all rv32i instructions
-.include "rv32i.s"
-
-# use tests for all multiply and divide instructions
-.include "ext_m.s"
-
-# use tests for control and status register instructions
-.include "ext_zicsr.s"
-
-# use test for writing to instruction memory
-.include "zifencei.s"
-
-# set to 1 to enable printing, set to 0 to disable printing
-.equiv Use_putchar, 1
+.include "config.s"
 
 .text
 .global _start
@@ -77,6 +55,12 @@ _start:
     # misc tests
     fence_tests
 
+.ifdef Test_zifencei
+    # Zifencei extension tests
+    zifencei_tests
+.endif
+
+.ifdef Test_m
     # M extension tests
     mul_tests
     mulh_tests
@@ -86,7 +70,9 @@ _start:
     divu_tests
     rem_tests
     remu_tests
+.endif
 
+.ifdef Test_zicsr
     # Zicsr extension tests
     csrrw_tests
     csrrwi_tests
@@ -94,9 +80,7 @@ _start:
     csrrsi_tests
     csrrc_tests
     csrrci_tests
-
-    # Zifencei extension tests
-    zifencei_tests
+.endif
 
     # stop execution
     Stop

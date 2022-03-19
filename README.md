@@ -45,17 +45,22 @@ $ brew tap riscv/riscv
 $ brew install riscv-tools
 ```
 
-## Building
-Note that if you are using the 32-bit version of the RISC-V tools, the makefile may need to be edited.
+## Port Checklist
+This is a very quick list of the steps required to port the test suite to a new platform. See the [Porting](#porting) section for details.
+1. Open `makefile` and check that all definitions in the configuration section are correct
+2. Open `src/config.s` and comment out extension test suites that should not be run.
+3. Implement the macros in `src/bare_port_macros.s` and include it in `src/config.s` or use the `src/spike_port_macros.s` file if testing on Spike.
+4. Build and test!
 
+## Building
 ### Bare Metal
-Run `make` in the `src` directory to build the test suite for the `bare` target, which is suitable for running the test suite on bare metal hardware.
+Run `make` to build the test suite for the `bare` target, which is suitable for running the test suite on bare metal hardware.
   
 By default, the .data and .bss segments are located before the .text segment in order to easily permit execution on machines with seperate instruction and data memories. If the .hex file is loaded into memory and executed directly, execution must start at the address assigned to the `TEXT_ADDR` makefile variable.
   
 If the `bare` build is successful, two files will be created: `bare.elf` and `bare.hex`. `bare.elf` should be used if you need to disassemble or process the executable (see the Debugging section for more details). `bare.hex` is the raw binary and can be loaded into emulators or simulators directly.
   
-Below is the example output from an emulator written in Rust.
+Below is the output from an emulator written in Rust.
 ```
 $ cargo run bare.hex
 (emulator) starting execution
@@ -69,7 +74,7 @@ jalr
 ```
 
 ### Spike
-To build the test suite for the [spike RISC-V emulator](https://github.com/riscv-software-src/riscv-isa-sim), the correct assertion macros must be included. This can be done by uncommenting the relevant `.include` in `start.s`, like so:
+To build the test suite for the [spike RISC-V emulator](https://github.com/riscv-software-src/riscv-isa-sim), the correct assertion macros must be included. This can be done by uncommenting the relevant `.include` in `config.s`, like so:
 ```
 # comment this line
 #.include "bare_port_macros.s"
@@ -112,7 +117,7 @@ These instructions are not required to run the test suite, but are helpful if th
 
 ### Implementation Details
  - At least 64 bytes of uninitialized memory should be in the .bss section. The .data section is not used.
- - If `_start` is not the first label seen it will not be the first to execute in the .hex file. Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
+ - If `_start` is not the first label seen in `start.s` it will not be the first to execute in the .hex file. Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
  - The `fence` instruction tests are more or less stubs and shound be expanded.
   
  - The Zicsr extension tests require access to the following registers:

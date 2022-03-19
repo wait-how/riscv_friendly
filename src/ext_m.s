@@ -1,5 +1,8 @@
 # Multiply extension instructions
 
+# enable testing of non-standard extension
+.equiv Test_m, 1
+
 .include "mul.s"
 .include "mulh.s"
 .include "mulhu.s"

@@ -1,6 +1,6 @@
-# required macros
+# Required macros
 
-# checks if registers l and r are equal and terminates execution if they aren't
+# check if registers l and r are equal and terminate execution if they aren't.
 .macro Assert_eq lreg, rreg
     li s0, 0 # 0 == assert Ecall
     mv t1, \lreg
@@ -9,25 +9,25 @@
 .endm
 
 .macro Assert_ne lreg, rreg
-    # TODO
-    unimp
+	# TODO: unused?
+	unimp
 .endm
 
-# halts execution, called once when test suite has finished successfully
+# halt execution and is called once when test suite has finished successfully.
 .macro Stop
 stop:
     ebreak
 .endm
 
-# put implementation setup here
+# called before any other instruction - use for any initialization or setup tasks that need to be performed
 .macro Imp_setup
 .endm
 
-# put misc implementation details here
+# called after Stop - use for storing extra data used by Imp_setup
 .macro Imp_details
 .endm
 
-# optional macros
+# Optional macros
 
 # print the character in argument c
 .macro Putchar_imm c

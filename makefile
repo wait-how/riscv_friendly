@@ -3,11 +3,11 @@
 # CONFIGURATION SECTION
 
 
-# set the name of the toolchain to use
+# set the name of the toolchain to use (using a 64-bit toolchain is recommended even when building 32-bit executables)
 TOOLCHAIN := riscv64-elf
 
 # set the architecture to test
-ARCH := rv32imf
+ARCH := rv32im
 
 # set the abi to use (use ilp32 for 32-bit processors and lp64 for 64-bit processors)
 ABI := ilp32

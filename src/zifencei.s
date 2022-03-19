@@ -1,3 +1,5 @@
+# Fence instructions
+
 .macro zifencei_tests
 zifencei_exec_1:
     li a2, 0
