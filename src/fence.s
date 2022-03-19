@@ -1,4 +1,7 @@
 .macro fence_tests
+
+	Suite_setup fence
+
 test_fence_1:
     # basic fence tests
     fence iorw, iorw

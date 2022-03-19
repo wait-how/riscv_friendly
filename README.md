@@ -129,6 +129,7 @@ These instructions are not required to run the test suite, but are helpful if th
  - `instret` (retired instruction count register, address 0xC02)
 
 ## TODOs
+ - expand zifencei tests
  - test misaligned accesses to memory if EEI allows it
  - check unaligned mem tests, two variants used in the test suite
 
