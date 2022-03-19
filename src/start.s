@@ -55,6 +55,16 @@ _start:
     # misc tests
     fence_tests
 
+.ifdef Test_ecall
+    # ecall tests (normally a stub)
+    ecall_tests
+.endif
+
+.ifdef Test_ebreak
+    # ebreak tests (normally a stub)
+    ebreak_tests
+.endif
+
 .ifdef Test_zifencei
     # Zifencei extension tests
     zifencei_tests

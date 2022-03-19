@@ -129,12 +129,11 @@ These instructions are not required to run the test suite, but are helpful if th
  - `instret` (retired instruction count register, address 0xC02)
 
 ## TODOs
- - test ecall/ebreak instructions
  - test misaligned accesses to memory if EEI allows it
  - check unaligned mem tests, two variants used in the test suite
 
 ## Future Goals
- - C tests
+ - C-like tests
  - Rust tests
  - benchmarks (with numbers for spike and qemu)
  

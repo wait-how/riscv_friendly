@@ -35,3 +35,5 @@
 .include "lw_sw.s"
 
 .include "fence.s"
+.include "ecall.s"
+.include "ebreak.s"
