@@ -1,6 +1,9 @@
 # Fence instructions
 
 .macro zifencei_tests
+
+	Suite_Setup zifencei
+
 zifencei_exec_1:
     li a2, 0
     li a3, 3
