@@ -18,20 +18,17 @@
 .equiv Test_ebreak, 0
 
 # Test suites
-# any test suites commented out will not be included in the binary
+# set to 1 to run tests for all instructions in the test suite and 0 to exclude tests from the final binary
 
-# basic sanity tests
-.include "sanity_tests.s"
+# base RV32I instruction set tests
+.equiv Test_rv32i, 1
 
-# tests for all rv32i instructions
-.include "rv32i.s"
+# tests for writing instruction memory
+.equiv Test_zifencei, 1
 
-# tests for writing to instruction memory
-.include "ext_zifencei.s"
+# tests for multiplication and division
+.equiv Test_m, 1
 
-# tests for all multiply and divide instructions
-.include "ext_m.s"
-
-# tests for control and status register instructions
-.include "ext_zicsr.s"
+# tests for control and status registers
+.equiv Test_zicsr, 1
 

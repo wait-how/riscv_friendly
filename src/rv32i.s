@@ -1,3 +1,5 @@
+# core RV32I instructions
+
 .include "add.s"
 .include "addi.s"
 .include "sub.s"

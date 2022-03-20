@@ -1,4 +1,11 @@
-.include "test_macros.s"
+.include "test_macros.s" # support macros for all tests
+
+.include "sanity_tests.s"
+.include "rv32i.s"
+
+.include "ext_zifencei.s"
+.include "ext_m.s"
+.include "ext_zicsr.s"
 
 .include "config.s"
 
@@ -12,6 +19,7 @@ _start:
     # NOTE: check these tests carefully, as the tests below assume these instructions function correctly!
     sanity_tests
 
+.if Test_rv32i
     # arithmetic tests
     lui_tests
     auipc_tests
@@ -55,22 +63,24 @@ _start:
     # misc tests
     fence_tests
 
-.ifdef Test_ecall
+.if Test_ecall
     # ecall tests (normally a stub)
     ecall_tests
 .endif
 
-.ifdef Test_ebreak
+.if Test_ebreak
     # ebreak tests (normally a stub)
     ebreak_tests
 .endif
 
-.ifdef Test_zifencei
+.endif
+
+.if Test_zifencei
     # Zifencei extension tests
     zifencei_tests
 .endif
 
-.ifdef Test_m
+.if Test_m
     # M extension tests
     mul_tests
     mulh_tests
@@ -82,7 +92,7 @@ _start:
     remu_tests
 .endif
 
-.ifdef Test_zicsr
+.if Test_zicsr
     # Zicsr extension tests
     csrrw_tests
     csrrwi_tests
