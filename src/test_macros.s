@@ -118,7 +118,6 @@ Putchar_imm '\n'
     Assert_eq a1, a2
 .endm
 
-# NOTE: riscv_tests loops three times on every invocation of this test
 .macro Test_Rd_Bypass suite, test, nop_count, imm, instr, exp_val, lval, rval
     Test_Setup \suite, \test
 
@@ -141,7 +140,6 @@ Putchar_imm '\n'
 
 # rs1 bypass and rs2 bypass macros are almost the same except for loading operands in the opposite order
 
-# NOTE: riscv_tests loops three times on every invocation of this test
 .macro Test_Rs1_Bypass suite, test, rs1_nop_count, rs2_nop_count, imm, instr, exp_val, lval, rval
     Test_Setup \suite, \test
 
@@ -164,7 +162,6 @@ Putchar_imm '\n'
     Assert_eq a3, a4
 .endm
 
-# NOTE: riscv_tests loops three times on every invocation of this test
 .macro Test_Rs2_Bypass suite, test, rs1_nop_count, rs2_nop_count, instr, exp_val, lval, rval
     Test_Setup \suite, \test
 
@@ -261,7 +258,7 @@ Putchar_imm '\n'
 
 .macro Test_St_Ld suite, test, ld_instr, st_instr, start_val, exp_val, offset, base_addr
     Test_Setup \suite, \test
-    
+
     li a3, \exp_val
     la a1, \base_addr
     li a2, \start_val
@@ -444,7 +441,7 @@ Putchar_imm '\n'
     \instr a1, \csr, a0
     \instr a1, \csr, a0
 .endif
-    
+
 
     Assert_eq a1, a2
 .endm

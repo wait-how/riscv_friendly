@@ -30,7 +30,15 @@ sanity_check_4:
     Assert_eq a0, a1
 
 sanity_check_5:
+	# check if a register can be compared to itself
     addi a0, zero, 1
-    Assert_eq a0, a0 # check if a register can be compared to itself
+    Assert_eq a0, a0
+
+sanity_check_6:
+	# check if basic forwarding works correctly
+	addi a0, zero, 6
+	addi a2, a0, 1
+	addi a1, a2, -1
+	Assert_eq a0, a1
 
 .endm

@@ -7,7 +7,7 @@
     bne t1, t2, 1f
     j 2f
 1:  j fail
-2:  
+2:
 .endm
 
 # checks if registers l and r are different and terminates execution if they aren't
@@ -17,7 +17,7 @@
     beq t1, t2, 1f
     j 2f
 1:  j fail
-2:  
+2:
 .endm
 
 .macro Stop
@@ -70,7 +70,7 @@ putchar_imm:
     sb t1, 0(a2)
     sw a2, 16(t0)
     sw a3, 24(t0)
-    
+
     la t1, tohost # write buffer to tohost symbol
     sw t0, 0(t1)
 
