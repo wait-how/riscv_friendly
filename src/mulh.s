@@ -8,8 +8,8 @@
     Test_Rd_Rs1_Rs2 mulh, mul_4, REG, mulh, 0x00000000, 0x00000000, 0xffff8000
     Test_Rd_Rs1_Rs2 mulh, mul_5, REG, mulh, 0x00000000, 0x80000000, 0x00000000
     Test_Rd_Rs1_Rs2 mulh, mul_6, REG, mulh, 0x00000000, 0x80000000, 0x00000000
-    Test_Rd_Rs1_Rs2 mulh, mul_7, REG, mulh, 0x0001fefe, 0xaaaaaaab, 0x0002fe7d
-    Test_Rd_Rs1_Rs2 mulh, mul_8, REG, mulh, 0x0001fefe, 0x0002fe7d, 0xaaaaaaab
+    Test_Rd_Rs1_Rs2 mulh, mul_7, REG, mulh, 0xffff0081, 0xaaaaaaab, 0x0002fe7d
+    Test_Rd_Rs1_Rs2 mulh, mul_8, REG, mulh, 0xffff0081, 0x0002fe7d, 0xaaaaaaab
     Test_Rd_Rs1_Rs2 mulh, mul_9, REG, mulh, 0x00010000, 0xff000000, 0xff000000
     Test_Rd_Rs1_Rs2 mulh, mul_10, REG, mulh, 0x00000000, 0xffffffff, 0xffffffff
     Test_Rd_Rs1_Rs2 mulh, mul_11, REG, mulh, 0xffffffff, 0xffffffff, 0x00000001
