@@ -48,8 +48,8 @@ $ brew install riscv-tools
 ## Port Checklist
 This is a very quick list of the steps required to port the test suite to a new platform. See the [Porting](#porting) section for details.
 1. Open `makefile` and check that all definitions in the configuration section are correct
-2. Open `src/config.s` and comment out extension test suites that should not be run.
-3. Implement the macros in `src/bare_port_macros.s` and include it in `src/config.s` or use the `src/spike_port_macros.s` file if testing on Spike.
+2. Open `src/config.s` and comment out extension test suites that should not be run. Individual tests can be commented out in `src/start.s`.
+3. Implement the macros in `src/bare_port_macros.s` and include it in `src/config.s` or use the `src/spike_port_macros.s` file if testing on [Spike](https://github.com/riscv-software-src/riscv-isa-sim).
 4. Build and test!
 
 ## Building
