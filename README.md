@@ -29,9 +29,15 @@ A RISC-V port of binutils is required to build the test suite. Note that the 32-
 ### Debian-based (Ubuntu, etc.)
 Install binutils using the following command:
 ```
-$ sudo apt-get update && sudo apt-get install binutils-riscv64-unknown-elf
+$ sudo apt-get install binutils-riscv64-unknown-elf
 ```
- 
+
+### RHEL-based (Fedora, etc.)
+Install binutils using the following command. Note that the `TOOLCHAIN` makefile variable will need to be changed to `riscv64-linux-gnu`.
+```
+$ sudo dnf install binutils-riscv64-linux-gnu
+```
+
 ### Arch-based (Manjaro, etc.)
 Install binutils using the following command:
 ```
