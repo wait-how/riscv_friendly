@@ -1,2 +1,0 @@
-# ignore all object files here but keep the directory (needed by the makefile)
-!.gitignore

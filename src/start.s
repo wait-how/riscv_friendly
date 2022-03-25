@@ -1,11 +1,20 @@
 .include "test_macros.s" # support macros for all tests
 
+# base tests
 .include "sanity_tests.s"
 .include "rv32i.s"
 
+# extension tests
 .include "ext_zifencei.s"
 .include "ext_m.s"
 .include "ext_zicsr.s"
+
+# short benchmark tests
+.include "bench.s"
+
+# internal tests (for debug use only!)
+.include "debug.s"
+.equiv Test_debug, 0
 
 .include "config.s"
 
@@ -14,6 +23,14 @@
 _start:
     # set up the test suite environment
     Imp_setup
+
+.if Test_debug
+	Putchar_imm '\n'
+	hex_print_tests
+	Putchar_imm '\n'
+	Putchar_imm '\n'
+	Stop
+.endif
 
     # quick sanity tests to check that lui, add, addi, and Assert_eq are all working
     # NOTE: check these tests carefully, as the tests below assume these instructions function correctly!
@@ -100,6 +117,10 @@ _start:
     csrrsi_tests
     csrrc_tests
     csrrci_tests
+.endif
+
+.if Run_bench
+	test_bench
 .endif
 
     # stop execution

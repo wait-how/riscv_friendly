@@ -1,4 +1,4 @@
-# Required macros
+# All of the following macros are required to be defined, but only the Assert macros need to contain code.
 
 # check if registers l and r are equal and terminate execution if they aren't
 .macro Assert_eq lreg, rreg
@@ -18,7 +18,7 @@
 
 # halt execution - called once when test suite has finished successfully
 .macro Stop
-stop:
+stop_\@:
     ebreak
 .endm
 
@@ -30,11 +30,16 @@ stop:
 .macro Imp_details
 .endm
 
-# Optional macros
-
 # print the character in argument c
 .macro Putchar_imm c
     li s0, 1 # 1 == print Ecall
     li t1, \c
     ecall
+.endm
+
+# print the character in register reg
+.macro Putchar_reg reg
+	li s0, 1
+	mv t1, \reg
+	ecall
 .endm

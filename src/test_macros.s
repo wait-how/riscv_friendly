@@ -10,6 +10,38 @@ Putchar_imm '\n'
 .endif
 .endm
 
+# clobbers t0, t1, t2, t3
+.macro Print_hex reg
+print_hex_\@:
+	Putchar_imm '0'
+	Putchar_imm 'x'
+
+	li t0, 8 # counter of digits to print
+	li t2, 9 # anything above '9' needs a different offset
+	mv t3, \reg # copy reg to avoid clobbering src
+
+0:
+	# get uppermost nibble
+	mv t1, t3
+	slli t3, t3, 4
+	srli t1, t1, 28
+
+	bgt t1, t2, 2f # check if number or letter
+1:
+	# number
+	addi t1, t1, '0'
+	j 3f
+2:
+	# letter
+	addi t1, t1, -10
+	addi t1, t1, 'A'
+3:
+	# print and adjust counter
+	Putchar_reg t1
+	addi t0, t0, -1
+	bgtz t0, 0b
+.endm
+
 # generic code macros
 
 .macro Suite_Setup suite

@@ -1,5 +1,3 @@
-# required macros
-
 # checks if registers l and r are equal and terminates execution if they aren't
 .macro Assert_eq lreg, rreg
     mv t1, \lreg
@@ -21,7 +19,7 @@
 .endm
 
 .macro Stop
-stop:
+stop_\@:
     # NOTE: writing a 32-bit value to tohost with lsb set to 1 stops the sim, with the upper 31 bits used as the exit code
     li t0, 1
     la t1, tohost
@@ -82,10 +80,14 @@ putchar_imm:
     ret
 .endm
 
-# optional macros
-
 # print the character in argument c
 .macro Putchar_imm c
     li a2, \c # load character to write
     call putchar_imm # call putchar here or unrolled loop cost will be huge!
+.endm
+
+# print the character in argument reg
+.macro Putchar_reg reg
+	mv a2, \reg
+	call putchar_imm
 .endm

@@ -1,7 +1,7 @@
 # Implementation details
 
 # uncomment this line to use an example implementation of the proper macros for a software emulator
-#.include "bare_port_macros.s"
+.include "bare_port_macros.s"
 
 # uncomment this line to use an implementation of the proper macros for the spike emulator
 #.include "spike_port_macros.s"
@@ -32,3 +32,5 @@
 # tests for control and status registers
 .equiv Test_zicsr, 0
 
+# run simple benchmarks
+.equiv Run_bench, 1

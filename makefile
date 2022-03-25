@@ -4,7 +4,7 @@
 
 
 # set the name of the toolchain to use (using a 64-bit toolchain is recommended even when building 32-bit executables)
-TOOLCHAIN := riscv64-elf
+TOOLCHAIN := riscv64-linux-gnu
 
 # set the architecture to test
 ARCH := rv32im
@@ -30,12 +30,16 @@ DATA_ADDR := 0x100
 # this location matters for jump tests
 TEXT_ADDR := 0x200
 
+# directories to search for assembly code or macros
+SRC_DIRS := src src/test src/bench src/debug
 
 # END CONFIGURATION SECTION
 
 
-SRC := $(foreach dir,src,$(wildcard $(dir)/*.s))
-OBJ := $(patsubst %,obj/%.o,$(notdir $(basename $(SRC))))
+OBJ_DIR := obj
+
+SRC := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.s))
+OBJ := $(patsubst %,$(OBJ_DIR)/%.o,$(basename $(SRC)))
 
 .PHONY: dump_hw dump_sw single bare spike pre
 
@@ -50,13 +54,15 @@ spike: pre $(OBJ)
 	@$(TOOLCHAIN)-ld -m$(LINK_ABI) -static -T link_spike.ld $(OBJ) -o $@.elf
 	@echo "spike build completed"
 
-# need to clear out all object files because changing macros in one file may change
-# the contents of others (there's probably a better way to do this)
+# Need to clear out all object files because changing macros in one file may change
+# the contents of others (there's probably a better way to do this).
+# Also replicate the directory structure of the src folder in obj.
 pre:
-	@rm -f obj/*.o
+	@rm -rf $(OBJ_DIR)
+	@mkdir -p $(patsubst %,$(OBJ_DIR)/%,$(SRC_DIRS)) > /dev/null
 
-obj/%.o: src/%.s
-	@$(TOOLCHAIN)-as -mabi=$(ABI) -march=$(ARCH) -Isrc -o $@ $<
+$(OBJ_DIR)/%.o: %.s
+	@$(TOOLCHAIN)-as -mabi=$(ABI) -march=$(ARCH) $(patsubst %,-I%,$(SRC_DIRS)) -o $@ $<
 
 # disassemble the test suite .elf using high-level register names (a0, a1, etc), pseudoinstructions,
 # and colored arrows to indicate jump directions
@@ -75,5 +81,5 @@ dump_sw:
 		$(file) | tail +8
 
 clean:
-	@rm -rf obj/*.o
+	@rm -rf $(OBJ_DIR)
 	@rm -rf *.elf *.hex
