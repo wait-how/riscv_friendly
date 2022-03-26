@@ -4,11 +4,11 @@
 
     # using a manually constructed test here because the test is pretty specialized
 
-jal_jump_1:
-    li t0, 0xffffffff
+	Test_Setup jal, jal_jump_1
 
     li ra, 0
     li a1, 0
+
 jal_jump_addr:
     jal 1f
     addi a1, a1, 1
@@ -20,8 +20,7 @@ jal_jump_addr:
     Assert_eq ra, a0
     Assert_eq a1, zero
 
-jal_jump_zero:
-    li t0, 0xffffffff
+	Test_Setup jal, jal_jump_zero
 
     li ra, 0
     j 1f

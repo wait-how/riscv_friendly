@@ -19,7 +19,7 @@
 
     Test_Zero_Csr_Rs csrrsi, zero_1, IMM, csrrsi, mscratch, 0
 
-test_csrrsi_zero_4:
+	Test_Setup csrrsi, test_csrrsi_zero_4
     csrrsi a0, mcycle, 0 # this should not fail because mcycle is read-only
     csrrsi a1, mcycle, 0
     add a1, a1, a0 # add a0 and a1 to avoid unintentionally failing when mcycle rolls over to zero

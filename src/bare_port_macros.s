@@ -1,5 +1,7 @@
 # All of the following macros are required to be defined, but only the Assert macros need to contain code.
 
+# NOTE: All macros are allowed to clobber s0, t1, and t2.
+
 # check if registers l and r are equal and terminate execution if they aren't
 .macro Assert_eq lreg, rreg
     li s0, 0 # 0 == assert Ecall
@@ -26,7 +28,7 @@ stop_\@:
 .macro Imp_setup
 .endm
 
-# called after Stop - use for storing extra data used by Imp_setup
+# called after Stop - use for storing extra data used by the implementation
 .macro Imp_details
 .endm
 

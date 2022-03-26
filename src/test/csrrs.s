@@ -24,7 +24,7 @@
     Test_Rd_Csr_Zero csrrs, zero_2, csrrs, mscratch, 0xaaaa5555
     Test_Zero_Csr_Zero csrrs, zero_3, csrrs, mscratch
 
-test_csrrs_zero_4:
+	Test_Setup csrrs, test_csrrs_zero_4
     csrrs a0, mcycle, zero # this should not fail because mcycle is read-only
     csrrs a1, mcycle, zero
     add a1, a1, a0 # add a0 and a1 to avoid unintentionally failing when mcycle rolls over to zero

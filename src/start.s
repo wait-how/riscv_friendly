@@ -9,9 +9,6 @@
 .include "ext_m.s"
 .include "ext_zicsr.s"
 
-# short benchmark tests
-.include "bench.s"
-
 # internal tests (for debug use only!)
 .include "debug.s"
 .equiv Test_debug, 0
@@ -31,6 +28,8 @@ _start:
 	Putchar_imm '\n'
 	Stop
 .endif
+
+	Print_name starting...
 
     # quick sanity tests to check that lui, add, addi, and Assert_eq are all working
     # NOTE: check these tests carefully, as the tests below assume these instructions function correctly!
@@ -119,9 +118,7 @@ _start:
     csrrci_tests
 .endif
 
-.if Run_bench
-	test_bench
-.endif
+	Print_name done.
 
     # stop execution
     Stop
@@ -132,10 +129,10 @@ _start:
 # space for testing load and store instructions
 test_data:
     .align 4
-    .fill 64
+    .fill 256
 
 .data
 # not used but defined
 unused:
     .align 4
-    .fill 64
+    .fill 256

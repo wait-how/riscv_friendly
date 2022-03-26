@@ -122,22 +122,33 @@ These instructions are not required to run the test suite, but are helpful if th
  - The `ecall` and `ebreak` instructions hand control to the execution environment, with parameters being passed in registers. This instruction is fairly easy to implement for basic processor or emulators and is used to implement the assertion macro `Assert_eq` for the `bare` target.
 
 ### Implementation Details
- - At least 64 bytes of uninitialized memory should be in the .bss section. The .data section is not used.
+ - At least 256 bytes of uninitialized memory must be available in both the .bss and .data sections.
+   - The .data section is not used by any test suite code and can be used by the implementation.
+   - The stack pointer should point to the .data section. No test suite tests will use the stack pointer, but the print code may.
+ - Always use the `Test_Setup` macro at the start of a test, as this will ensure the value in `t0` is unique per test.
  - If `_start` is not the first label seen in `start.s` it will not be the first to execute in the .hex file. Avoid this by placing all port-specific code and data in the `Imp_details` macro in the `bare_port_macros.s` file so it gets included last.
- - The `fence` instruction tests are more or less stubs and shound be expanded.
+ - The `fence`, `ecall`, and `ebreak` instruction tests are more or less stubs and shound be expanded.
   
  - The Zicsr extension tests require access to the following registers:
- - A register that can be read and written without affecting program execution, such as one of the following:
-    - `mscratch` (trap scratch register, address 0x340)
-    - `fflags` (floating point exception register, address 0x001)
- - `cycle` (cycle count register, address 0xC00)
- - `time` (time register, address 0xC01)
- - `instret` (retired instruction count register, address 0xC02)
+   - A register that can be read and written without affecting program execution, such as one of the following:
+      - `mscratch` (trap scratch register, address 0x340)
+      - `fflags` (floating point exception register, address 0x001)
+   - `cycle` (cycle count register, address 0xC00)
+   - `time` (time register, address 0xC01)
+   - `instret` (retired instruction count register, address 0xC02)
+
+### Register Usage
+ - Registers `s0`, `t1`, and `t2` can be freely clobbered by any macro. Keep this in mind when calling macros from other macros. Do not use these registers to pass values to macros.
+ - Register `t0` contains a number that is unique per test. This can be useful for debugging individual tests.
+ - Registers `a0`, `a1`, `a2`, `a3`, and `a4` are zeroed out before every test.
+ - Do not manually adjust `sp`, since even though the test suite itself doesn't use a stack the Spike implementation does.
 
 ## TODOs
  - expand zifencei tests
  - test misaligned accesses to memory if EEI allows it
  - check unaligned mem tests, two variants used in the test suite
+ - some csrrw tests commented out for spike due to lack of supported counters
+ - fix calling convention, current one is weird and not in line with the spec
 
 ## Future Goals
  - C-like tests

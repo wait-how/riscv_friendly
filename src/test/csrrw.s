@@ -12,7 +12,7 @@
     Test_Rd_Csr_Zero csrrw, zero_2, csrrw, mscratch, 0
     Test_Zero_Csr_Zero csrrw, zero_3, csrrw, mscratch
 
-csrrw_read_cycle:
+	Test_Setup csrrw, csrrw_read_cycle
     rdcycle a0
     nop
     nop
@@ -21,8 +21,8 @@ csrrw_read_cycle:
     sub a1, a1, a0
     Assert_ne a1, zero
 
+	Test_Setup csrrw, csrrw_read_time
 # rdtime is an illegal instruction in Spike
-csrrw_read_time:
 #     rdtime a0
     nop
     nop
@@ -32,7 +32,7 @@ csrrw_read_time:
 
     # a1 - a0 could very well be zero if the time CSR doesn't count that fast compared to the core
 
-csrrw_read_instret:
+	Test_Setup csrrw, csrrw_read_instret
     rdinstret a0
     nop
     nop

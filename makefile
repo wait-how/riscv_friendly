@@ -16,8 +16,8 @@ ABI := ilp32
 LINK_ABI := elf32lriscv
 
 # section addresses for the "bare" target
-# NOTE: the contents of the .bss and .data sections are not included in the .hex output
-# these locations matter for load and store tests
+# NOTE: the contents of the .bss and .data sections are not included in the .hex output,
+# but these locations matter for load and store tests!
 
 # uninitialized data starts here
 BSS_ADDR := 0x0
@@ -41,7 +41,7 @@ OBJ_DIR := obj
 SRC := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.s))
 OBJ := $(patsubst %,$(OBJ_DIR)/%.o,$(basename $(SRC)))
 
-.PHONY: dump_hw dump_sw single bare spike pre
+.PHONY: dump_hw dump_sw bare spike pre clean
 
 bare: pre $(OBJ)
 	@$(TOOLCHAIN)-ld -m$(LINK_ABI) -static -Ttext $(TEXT_ADDR) -Tbss $(BSS_ADDR) -Tdata $(DATA_ADDR) $(OBJ) -o $@.elf
@@ -64,21 +64,22 @@ pre:
 $(OBJ_DIR)/%.o: %.s
 	@$(TOOLCHAIN)-as -mabi=$(ABI) -march=$(ARCH) $(patsubst %,-I%,$(SRC_DIRS)) -o $@ $<
 
-# disassemble the test suite .elf using high-level register names (a0, a1, etc), pseudoinstructions,
-# and colored arrows to indicate jump directions
+
+# disassemble the test suite .elf using actual register names (x1, x2, etc) and actual instructions
 dump_hw:
 	@$(TOOLCHAIN)-objdump -d \
 		--line-numbers \
 		-Mno-aliases,numeric \
 		--visualize-jumps=extended-color \
-		$(file) | tail +8
+		$(file) | tail -n +8
 
-# disassemble the test suite .elf using actual register names (x1, x2, etc) and actual instructions
+# disassemble the test suite .elf using high-level register names (a0, a1, etc), pseudoinstructions,
+# and colored arrows to indicate jump directions
 dump_sw:
 	@$(TOOLCHAIN)-objdump -d \
 		--line-numbers \
 		--visualize-jumps=extended-color \
-		$(file) | tail +8
+		$(file) | tail -n +8
 
 clean:
 	@rm -rf $(OBJ_DIR)

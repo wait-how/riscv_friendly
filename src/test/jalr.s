@@ -2,8 +2,7 @@
 
     Suite_Setup jalr
 
-jalr_jump_1:
-    li t0, -1
+	Test_Setup jalr, jalr_jump_1
 
     li ra, 0
     la a0, 2f # same as "la a0, 2f" but entirely pc-relative
@@ -18,8 +17,7 @@ jalr_jump_1:
     Assert_eq ra, a1
     Assert_eq a2, zero
 
-jalr_jump_zero:
-    li t0, -1
+	Test_Setup jalr, jalr_jump_zero
 
     li ra, 0
     la a0, 1f # same as "la a0, 1f" but entirely pc-relative

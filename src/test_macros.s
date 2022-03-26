@@ -10,36 +10,49 @@ Putchar_imm '\n'
 .endif
 .endm
 
-# clobbers t0, t1, t2, t3
+# NOTE: currently unused because organizing the stack layout properly is annoying
 .macro Print_hex reg
+	unimp
 print_hex_\@:
 	Putchar_imm '0'
 	Putchar_imm 'x'
 
-	li t0, 8 # counter of digits to print
-	li t2, 9 # anything above '9' needs a different offset
-	mv t3, \reg # copy reg to avoid clobbering src
+	addi sp, sp, -16
+	sw a0, 12(sp)
+	sw a1, 8(sp)
+	sw a2, 4(sp)
+	sw a3, 0(sp)
+
+	mv a3, \reg
+	li a0, 8 # counter of digits to print
+	li a2, 9 # anything above '9' needs a different offset
 
 0:
 	# get uppermost nibble
-	mv t1, t3
-	slli t3, t3, 4
-	srli t1, t1, 28
+	mv a1, a3
+	slli a3, a3, 4
+	srli a1, a1, 28
 
-	bgt t1, t2, 2f # check if number or letter
+	bgt a1, a2, 2f # check if number or letter
 1:
 	# number
-	addi t1, t1, '0'
+	addi a1, a1, '0'
 	j 3f
 2:
 	# letter
-	addi t1, t1, -10
-	addi t1, t1, 'A'
+	addi a1, a1, -10
+	addi a1, a1, 'A'
 3:
 	# print and adjust counter
-	Putchar_reg t1
-	addi t0, t0, -1
-	bgtz t0, 0b
+	Putchar_reg a1
+	addi a0, a0, -1
+	bgtz a0, 0b
+
+	lw a3, 0(sp)
+	lw a2, 4(sp)
+	lw a1, 8(sp)
+	lw a0, 12(sp)
+	addi sp, sp, 16
 .endm
 
 # generic code macros
@@ -64,8 +77,6 @@ print_hex_\@:
 # Test_Val runs a section of code and compares the value in a1 to exp_val.
 # The test number is stored in t0 and is included for debugging purposes.
 
-# NOTE: s1, s2, and t0 are used for testing values and should not be written in the code parameter.
-
 # single line example:
 # Test_Val 1, 5, "addi a1, zero, 5"
 # multi line example:
@@ -81,12 +92,10 @@ print_hex_\@:
 # Test_Seq runs a section of code and checks if the values in a0 and a1 are equal.
 # The test number is stored in t0 and is included for debugging purposes.
 
-# NOTE: s1, s2, and t0 are used for testing values and should not be written in the code parameter.
-
 # single line example:
-# Test_Val 1, "addi a1, zero, 5"
+# Test_Seq 1, "addi a1, zero, 5"
 # multi line example:
-# Test_Val 1, "addi a1, zero, 5; addi a0, zero, 5"
+# Test_Seq 1, "addi a1, zero, 5; addi a0, zero, 5"
 .macro Test_Seq suite, test, code
     Test_Setup \suite, \test
 
